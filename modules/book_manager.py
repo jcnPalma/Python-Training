@@ -1,15 +1,15 @@
 import json
 import os
-from stock_book import Stockbook as book
+from .stock_book import Stockbook as book
 
 class BookManager:
     def __init__(self):
         # Initialize books by reading from the file
         self.books = self.read_from_file() or []
 
-    def save_book(self, book_details):
+    def save_book(self, title, author, publication_year = None, isbn = None):
         # Convert to book object
-        c_book = book(book_details[0], book_details[1], book_details[2], book_details[3]).get_book()
+        c_book = book(title, author, publication_year, isbn).get_book()
         
         if c_book not in self.books:
             # Add book to list of books
@@ -76,10 +76,7 @@ class BookManager:
 if __name__ == "__main__":
     test = BookManager()
     # Example usage
-    test.save_book(["Python Programming", "John Doe", "2021", "1234567890"])
-    test.save_book(["Learning JavaScript", "Jane Smith", "2020", "0987654321"])
-    test.update_book("Python Programming", publication_year="2022")
-    test.update_book("Learning JavaScript", isbn="1122334455")
+    test.save_book(title="The Alchemist", author="Paulo Coelho", isbn="978-0-06-250217-9")
 
     print(test.books)
 
